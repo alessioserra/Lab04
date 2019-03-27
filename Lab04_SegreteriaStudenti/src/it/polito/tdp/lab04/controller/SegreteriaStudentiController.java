@@ -101,6 +101,8 @@ public class SegreteriaStudentiController {
 
     }
 
+    Corso c1 = new Corso("codIns", "nome", 10, 1);
+    
     @FXML
     void doCercaIscritti(ActionEvent event) {
     	
@@ -109,8 +111,9 @@ public class SegreteriaStudentiController {
 
     	//Controllo selezione vuota
     	if (comboBox.getValue() != null) {
+    		
     	c = model.getCorsoDatoNome(comboBox.getValue());
-    	
+    		
     	List<Studente> studenti = model.getStudentiDelCorso(c);
     	
     	//Caso in cui nessuno studente sia iscritto al corso
@@ -129,7 +132,20 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doIscrivi(ActionEvent event) {
-
+    	
+    	Studente s = new Studente();
+    	
+    	try {
+        	s = this.model.getStudente(Integer.parseInt(txtInput.getText()));
+        	} catch(NumberFormatException e) {
+        		txtResult.appendText("Inserire un valore valido!\n");
+        		return;
+        	}
+    	s = model.getStudente(Integer.parseInt(txtInput.getText()));
+    	Corso c = model.getCorsoDatoNome(comboBox.getValue());
+    	
+    	if (model.inscriviStudenteACorsoModel(s,c) == true) txtResult.appendText("Iscrizione effettuata!");
+    	else txtResult.appendText("Studente gia' iscritto/Errore inserimento dati");
     }
 
     @FXML

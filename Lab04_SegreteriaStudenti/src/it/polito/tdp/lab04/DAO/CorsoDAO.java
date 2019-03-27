@@ -193,10 +193,36 @@ public class CorsoDAO {
 		}
 	}
 	
-	
+	//PUNTO 6 *da fare* -----------
 	public boolean inscriviStudenteACorso(Studente studente, Corso corso) {
-		// TODO
-		// ritorna true se l'iscrizione e' avvenuta con successo
-		return false;
+		
+		//Studente gia' iscritto
+		if (verificaIscrizione(studente,corso)==true) return false;
+		
+			//QUERY DI INSERIMENTO
+		
+			final String sql = "INSERT INTO iscrizione(matricola,codins) VALUES ( ? , ? )";	
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			
+			//Setto parametri query
+			st.setInt(1, studente.getMatricola());
+			st.setString(2, corso.getCodIns());
+			
+			ResultSet rs = st.executeQuery();
+
+			conn.commit();
+			
+			//Verifico l'avvenuta iscrizione con metodo precedente
+			if (verificaIscrizione(studente,corso)==true) return true;
+			//Altrimenti restituisco false
+		    return false;
+		    
+	} catch (SQLException e) {
+		// e.printStackTrace();
+		throw new RuntimeException("Errore Db");
 	}
+  }
 }
+

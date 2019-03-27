@@ -67,4 +67,7 @@ public class Model {
 		return corsoDAO.verificaIscrizione(s, c);
 	}
 	
+	public boolean inscriviStudenteACorsoModel(Studente s, Corso c) {
+		return corsoDAO.inscriviStudenteACorso(s, c); 
+	}
 }
