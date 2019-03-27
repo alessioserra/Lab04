@@ -74,6 +74,7 @@ public class SegreteriaStudentiController {
     	txtResult.clear();
         Studente s = new Studente();
     	
+        //Controllo sul formato della matricola
     	try {
     	s = this.model.getStudente(Integer.parseInt(txtInput.getText()));
     	} catch(NumberFormatException e) {
@@ -84,6 +85,12 @@ public class SegreteriaStudentiController {
     	if (s.getNome()!=null && s.getCognome()!=null) {
     	
     		List<Corso> corsi = model.getListaCorsiDaMatricolaModel(s.getMatricola());
+    		
+    		//Caso in cui lo studente non ia iscritto a nessun corso
+    		if (corsi.size()==0) {
+    			txtResult.appendText("Studente non iscritto a nessun Corso");
+    			return;
+    		}
     		
     		for (Corso c : corsi) {
     			txtResult.appendText(c.toString()+"\n");
@@ -105,6 +112,12 @@ public class SegreteriaStudentiController {
     	c = model.getCorsoDatoNome(comboBox.getValue());
     	
     	List<Studente> studenti = model.getStudentiDelCorso(c);
+    	
+    	//Caso in cui nessuno studente sia iscritto al corso
+    	if (studenti.size()==0) {
+    		txtResult.appendText("Nessuno studente iscritto al corso!");
+    		return;
+    	}
     	
     	for (Studente s : studenti) {
     		txtResult.appendText(s.toString()+"\n");
@@ -133,7 +146,9 @@ public class SegreteriaStudentiController {
     @FXML
     void doVerifica(ActionEvent event) {
     	
-    	txtResult.clear();
+    	//Pulisco campi interessati
+    	txtNome.clear();
+    	txtCognome.clear();
     	
     	Studente s = new Studente();
     	
