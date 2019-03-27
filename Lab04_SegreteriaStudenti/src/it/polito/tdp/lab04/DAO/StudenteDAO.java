@@ -16,7 +16,7 @@ public class StudenteDAO {
 	 */
 	public Studente getStudente(int matricola) {
 
-		final String sql = "SELECT * FROM studente WHERE  matricola=?";
+		final String sql = "SELECT * FROM studente WHERE matricola=?";
 		Studente s = new Studente();
 		
 		try {
@@ -33,10 +33,12 @@ public class StudenteDAO {
 				String nome = rs.getString("nome");
 				String cognome = rs.getString("cognome");
 				int m = rs.getInt("matricola");
+				String codins = rs.getString("CDS");
 				
 				s.setCognome(cognome);
 				s.setMatricola(m);
 				s.setNome(nome);
+				s.setCodIns(codins);
 			}
 
 			return s;

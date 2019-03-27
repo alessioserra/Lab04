@@ -1,8 +1,10 @@
 package it.polito.tdp.lab04.controller;
 
 import java.net.URL;
+import java.util.*;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.lab04.model.Corso;
 import it.polito.tdp.lab04.model.Model;
 import it.polito.tdp.lab04.model.Studente;
 import javafx.event.ActionEvent;
@@ -71,6 +73,23 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doCercaIscritti(ActionEvent event) {
+    	
+    	txtResult.clear();
+    	Corso c = new Corso();
+
+    	//Controllo selezione vuota
+    	if (comboBox.getValue() != null) {
+    	c = model.getCorsoDatoNome(comboBox.getValue());
+    	
+    	List<Studente> studenti = model.getStudentiDelCorso(c);
+    	
+    	for (Studente s : studenti) {
+    		txtResult.appendText(s.toString()+"\n");
+    	    }
+    	}
+    	
+    	else txtResult.appendText("Errore nella selezione del corso!");
+    	
 
     }
 

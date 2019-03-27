@@ -11,11 +11,13 @@ import it.polito.tdp.lab04.model.Corso;
 import it.polito.tdp.lab04.model.Studente;
 
 public class CorsoDAO {
+	
+	StudenteDAO stud = new StudenteDAO();
 
 	/*
 	 * Ottengo tutti i corsi salvati nel Db
 	 */
-	public List<Corso> getTuttiICorsi() {
+	    public List<Corso> getTuttiICorsi() {
 
 		final String sql = "SELECT * FROM corso";
 
@@ -34,8 +36,6 @@ public class CorsoDAO {
 				String nome = rs.getString("nome");
 				int periodoDidattico = rs.getInt("pd");
 
-				System.out.println(codins + " " + numeroCrediti + " " + nome + " " + periodoDidattico);
-
 				Corso c = new Corso(codins,nome,numeroCrediti,periodoDidattico);
 				corsi.add(c);
 			}
@@ -51,15 +51,72 @@ public class CorsoDAO {
 	/*
 	 * Dato un codice insegnamento, ottengo il corso
 	 */
-	public void getCorso(Corso corso) {
-		// TODO
+	public Corso getCorso(String nomeCorso) {
+		
+		final String sql = "SELECT * FROM corso WHERE nome=?";
+
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			//Setto valore del Corso
+		    st.setString(1, nomeCorso);
+			
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+
+				String codins = rs.getString("codins");
+				int numeroCrediti = rs.getInt("crediti");
+				String nome = rs.getString("nome");
+				int periodoDidattico = rs.getInt("pd");
+				
+				Corso c = new Corso(codins,nome,numeroCrediti,periodoDidattico);
+				return c;
+			}
+
+			return null;
+
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException("Errore Db");
+		}
 	}
 
 	/*
 	 * Ottengo tutti gli studenti iscritti al Corso
 	 */
-	public void getStudentiIscrittiAlCorso(Corso corso) {
-		// TODO
+	public List<Studente> getStudentiIscrittiAlCorso(Corso corso) {
+		
+		final String sql = "SELECT matricola FROM iscrizione WHERE codins=?";
+		
+		List<Studente> studenti = new LinkedList<Studente>();
+		String valore = corso.getCodIns();
+		
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			//Setto valore query
+			st.setString(1, valore);
+			
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+				
+				int matricola = rs.getInt("matricola");
+				
+				Studente s = stud.getStudente(matricola);
+				studenti.add(s);
+				
+			}
+
+			return studenti;
+
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException("Errore Db");
+		}
 	}
 
 	/*

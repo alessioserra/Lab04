@@ -7,6 +7,9 @@ public class Corso {
 	private int crediti;
 	private int periodo;
 	
+	public Corso() {
+	}
+	
 	public Corso(String codIns, String nome, int crediti, int periodo) {
 		this.codIns = codIns;
 		this.nome = nome;
@@ -71,6 +74,9 @@ public class Corso {
 		return true;
 	}
 	
+	public String toString() {
+		return nome;
+	}
 	
 	
 

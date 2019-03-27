@@ -10,11 +10,11 @@ public class Studente {
 	public Studente() {
 	}
 	
-	public Studente(int matricola, String nome, String cognome) {
+	public Studente(int matricola, String nome, String cognome,String codIns) {
 		this.matricola = matricola;
 		this.nome = nome;
 		this.cognome = cognome;
-		this.codIns=null;
+		this.codIns=codIns;
 	}
 
 	public int getMatricola() {
@@ -71,7 +71,9 @@ public class Studente {
 		return true;
 	}
 	
-	
+	public String toString() {
+		return matricola+"     "+nome+"     "+cognome+"     "+codIns;
+	}
 	
 	
 }

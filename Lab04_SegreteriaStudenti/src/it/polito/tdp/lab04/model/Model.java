@@ -35,6 +35,18 @@ public class Model {
 		return studenteDAO.getStudente(matricola);
 	}
 	
+	/**
+	 * Restituisco la lista degli studenti iscritti a quel corso
+	 * @param c
+	 * @return
+	 */
+	public List<Studente> getStudentiDelCorso(Corso c){
+		return corsoDAO.getStudentiIscrittiAlCorso(c);
+	}
+	
+	public Corso getCorsoDatoNome(String nomeCorso) {
+		return corsoDAO.getCorso(nomeCorso);
+	}
 	
 	
 }
