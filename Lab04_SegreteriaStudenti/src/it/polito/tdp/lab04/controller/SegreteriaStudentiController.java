@@ -19,7 +19,6 @@ public class SegreteriaStudentiController {
 	Model model = new Model();
 	
 	public void setModel(Model model) {
-		
 		this.model=model;
 		this.getValoriComboBox();
 	}
@@ -68,6 +67,27 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doCercaCorso(ActionEvent event) {
+    	
+    	txtResult.clear();
+        Studente s = new Studente();
+    	
+    	try {
+    	s = this.model.getStudente(Integer.parseInt(txtInput.getText()));
+    	} catch(NumberFormatException e) {
+    		txtResult.appendText("Inserire un valore valido!\n");
+    		return;
+    	}
+    	
+    	if (s.getNome()!=null && s.getCognome()!=null) {
+    	
+    		List<Corso> corsi = model.getListaCorsiDaMatricolaModel(s.getMatricola());
+    		
+    		for (Corso c : corsi) {
+    			txtResult.appendText(c.toString()+"\n");
+    		}		
+    	}
+
+    	else txtResult.appendText("Studente non trovato!\n");
 
     }
 

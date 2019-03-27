@@ -51,6 +51,40 @@ public class CorsoDAO {
 	/*
 	 * Dato un codice insegnamento, ottengo il corso
 	 */
+	    
+	 public Corso getCorsoCodIns(String codIns) {
+		 
+			final String sql = "SELECT * FROM corso WHERE codins=?";
+
+			try {
+				Connection conn = ConnectDB.getConnection();
+				PreparedStatement st = conn.prepareStatement(sql);
+
+				//Setto query
+				st.setString(1, codIns);
+				
+				ResultSet rs = st.executeQuery();
+
+				while (rs.next()) {
+
+					String codins = rs.getString("codins");
+					int numeroCrediti = rs.getInt("crediti");
+					String nome = rs.getString("nome");
+					int periodoDidattico = rs.getInt("pd");
+
+					Corso c = new Corso(codins,nome,numeroCrediti,periodoDidattico);
+					return c;
+				}
+
+				return null;
+
+			} catch (SQLException e) {
+				// e.printStackTrace();
+				throw new RuntimeException("Errore Db");
+			}
+	 }
+	    
+	    
 	public Corso getCorso(String nomeCorso) {
 		
 		final String sql = "SELECT * FROM corso WHERE nome=?";

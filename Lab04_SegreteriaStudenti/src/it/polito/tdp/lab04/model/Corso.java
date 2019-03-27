@@ -75,7 +75,7 @@ public class Corso {
 	}
 	
 	public String toString() {
-		return nome;
+		return codIns+" "+crediti+" "+nome+" "+periodo;
 	}
 	
 	

@@ -48,5 +48,13 @@ public class Model {
 		return corsoDAO.getCorso(nomeCorso);
 	}
 	
+	/**
+	 * Data la matricola, restituisce tutti i corsi a cui lo studente e' iscritto
+	 * @param matricola
+	 * @return
+	 */
+	public List<Corso> getListaCorsiDaMatricolaModel(int matricola){
+		return studenteDAO.getCorsoDaMatricola(matricola);
+	}
 	
 }
