@@ -107,6 +107,14 @@
             </TextArea>
             <HBox alignment="CENTER_RIGHT">
                <children>
+                  <Button fx:id="btnIscrizione" mnemonicParsing="false" onAction="#doVerificaIscrizione" text="Verifica Iscrizione">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="15.0" right="405.0" />
+                     </HBox.margin>
+                  </Button>
                   <Button fx:id="btnReset" mnemonicParsing="false" onAction="#doReset" text="Reset">
                      <font>
                         <Font size="14.0" />

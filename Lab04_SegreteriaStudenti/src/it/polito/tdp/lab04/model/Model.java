@@ -57,4 +57,14 @@ public class Model {
 		return studenteDAO.getCorsoDaMatricola(matricola);
 	}
 	
+	/**
+	 * Verifica iscrizione dello studente al corso
+	 * @param s
+	 * @param c
+	 * @return true se lo studente e' iscritto, false altrimenti
+	 */
+	public boolean verificaIscrizoneModel(Studente s,Corso c) {
+		return corsoDAO.verificaIscrizione(s, c);
+	}
+	
 }

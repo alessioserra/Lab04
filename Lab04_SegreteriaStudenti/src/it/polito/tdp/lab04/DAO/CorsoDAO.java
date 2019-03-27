@@ -156,6 +156,44 @@ public class CorsoDAO {
 	/*
 	 * Data una matricola ed il codice insegnamento, iscrivi lo studente al corso.
 	 */
+	
+	public boolean verificaIscrizione(Studente studente,Corso corso) {
+		
+        final String sql = "SELECT * FROM iscrizione WHERE codins=? AND matricola=?";
+		
+		List<Studente> studenti = new LinkedList<Studente>();
+		String valore1 = corso.getCodIns();
+		int valore2 = studente.getMatricola();
+		int flag = 0 ;
+		
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			//Setto valore query
+			st.setString(1, valore1);
+			st.setInt(2, valore2);
+			
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+				
+				int matricola = rs.getInt("matricola");
+				String codins = rs.getString("codins");
+				flag=1;
+				
+			}
+
+			if (flag == 1) return true;
+			else return false;
+
+		} catch (SQLException e) {
+			// e.printStackTrace();
+			throw new RuntimeException("Errore Db");
+		}
+	}
+	
+	
 	public boolean inscriviStudenteACorso(Studente studente, Corso corso) {
 		// TODO
 		// ritorna true se l'iscrizione e' avvenuta con successo

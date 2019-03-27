@@ -61,6 +61,9 @@ public class SegreteriaStudentiController {
 
     @FXML
     private TextArea txtResult;
+    
+    @FXML
+    private Button btnIscrizione;
 
     @FXML
     private Button btnReset;
@@ -109,8 +112,6 @@ public class SegreteriaStudentiController {
     	}
     	
     	else txtResult.appendText("Errore nella selezione del corso!");
-    	
-
     }
 
     @FXML
@@ -120,7 +121,13 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doReset(ActionEvent event) {
-
+    	
+    	//Azzero tutto
+    	txtResult.clear();
+    	txtInput.clear();
+    	txtNome.clear();
+    	txtCognome.clear();
+    	comboBox.setValue(null);
     }
 
     @FXML
@@ -145,6 +152,37 @@ public class SegreteriaStudentiController {
     	else txtResult.appendText("Studente non trovato!\n");
     	
     }
+    
+    @FXML
+    void doVerificaIscrizione(ActionEvent event) {
+    	
+    	Studente s = new Studente();
+    	
+    	if (comboBox.getValue()!=null && txtInput!=null) {
+    		
+    		//Controllo sul formato dei dati
+    		try {
+    	    	
+    		s = this.model.getStudente(Integer.parseInt(txtInput.getText()));
+    	    } catch(NumberFormatException e) {
+    	    		
+    	    		txtResult.appendText("Inserire un valore di matricola valido!\n");
+    	    		return;
+    	    	}
+    		//Verifico che lo studente sia nel DB
+    		if (s.getNome()==null && s.getCognome()==null) {
+    			txtResult.appendText("Studente non trovato, riprovare");
+    			return;
+    		}
+    		
+    		Corso c = model.getCorsoDatoNome(comboBox.getValue());
+    		
+    		if (model.verificaIscrizoneModel(s, c)==true) txtResult.appendText("Studente iscritto al Corso\n");
+    		else txtResult.appendText("Studente NON iscritto al Corso\n");
+    		
+    	}
+
+    }
 
     @FXML
     void initialize() {
@@ -157,6 +195,7 @@ public class SegreteriaStudentiController {
         assert btnCercaCorso != null : "fx:id=\"btnCercaCorso\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert btnIscrivi != null : "fx:id=\"btnIscrivi\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
+        assert btnIscrizione != null : "fx:id=\"btnIscrizione\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
 
     }
