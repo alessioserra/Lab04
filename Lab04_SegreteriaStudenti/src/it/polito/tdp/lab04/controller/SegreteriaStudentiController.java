@@ -197,6 +197,8 @@ public class SegreteriaStudentiController {
     		
     	}
 
+    	else txtResult.appendText("Errore nella selezione del corso/inserimento della matricola\n");
+    	
     }
 
     @FXML
