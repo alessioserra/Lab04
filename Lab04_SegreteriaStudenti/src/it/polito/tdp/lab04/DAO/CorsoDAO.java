@@ -212,10 +212,10 @@ public class CorsoDAO {
 			st.setString(2, corso.getCodIns());
 			
 			//executeUpdate() per query del tipo INSERT/UPDATE/DELETE
-		    int rs = st.executeUpdate();
-
-			conn.commit();
+		    st.executeUpdate();
 			
+		    //N.B. -> NON serve eseguire il commit, poichè l'autocommit è attivo di default!
+		    
 			//Verifico l'avvenuta iscrizione con metodo precedente
 			if (verificaIscrizione(studente,corso)==true) return true;
 			//Altrimenti restituisco false
