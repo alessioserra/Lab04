@@ -200,7 +200,7 @@ public class CorsoDAO {
 		//Verifico se lo stuente e' già iscritto al quel corso tramite metodo precedente
 		if (verificaIscrizione(studente,corso)==true) return false;
 		
-		final String sql = "INSERT IGNORE INTO iscritticorsi.iscrizione (matricola, codins) VALUES (?,?)";	
+		final String sql = "INSERT IGNORE INTO iscrizione (matricola, codins) VALUES (?,?)";	
 		
 		try {
 			
@@ -223,7 +223,7 @@ public class CorsoDAO {
 		    
 	} catch (SQLException e) {
 		// e.printStackTrace();
-		throw new RuntimeException("Errore Db");
+		throw new RuntimeException("Errore Db", e); 
 	}
   }
 }
