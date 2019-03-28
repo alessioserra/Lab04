@@ -145,7 +145,7 @@ public class SegreteriaStudentiController {
     	Corso c = model.getCorsoDatoNome(comboBox.getValue());
     	
     	if (model.inscriviStudenteACorsoModel(s,c) == true) txtResult.appendText("Iscrizione effettuata!");
-    	else txtResult.appendText("Studente gia' iscritto/Errore inserimento dati");
+    	else txtResult.appendText("Studente gia' iscritto/Errore inserimento dati\n");
     }
 
     @FXML

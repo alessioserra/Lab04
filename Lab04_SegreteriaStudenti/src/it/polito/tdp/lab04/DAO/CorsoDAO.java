@@ -193,22 +193,31 @@ public class CorsoDAO {
 		}
 	}
 	
-	//PUNTO 6 *da fare* -----------
+	
+	//PUNTO 6 *da fare* 
 	public boolean inscriviStudenteACorso(Studente studente, Corso corso) {
 		
-		//Studente gia' iscritto
+		//Verifico se lo stuente e' già iscritto al quel corso tramite metodo precedente
 		if (verificaIscrizione(studente,corso)==true) return false;
 		
-			//QUERY DI INSERIMENTO
+		//QUERY DI INSERIMENTO
+		int matricola = studente.getMatricola();
+		String codins = corso.getCodIns();
 		
-			final String sql = "INSERT INTO iscrizione(matricola,codins) VALUES ( ? , ? )";	
+		/* sara' da modificare
+		final String sql = "INSERT INTO iscrizione(matricola,codins) VALUES ( ? , ? )";	
+		*/
+		/*soluzione non del tutto corretta : */
+		final String sql = "INSERT INTO iscrizione VALUES ('"+matricola+"' , '"+codins+"')";
+		
 		try {
 			Connection conn = ConnectDB.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 			
-			//Setto parametri query
+			/*Setto parametri query
 			st.setInt(1, studente.getMatricola());
 			st.setString(2, corso.getCodIns());
+			*/
 			
 			ResultSet rs = st.executeQuery();
 
