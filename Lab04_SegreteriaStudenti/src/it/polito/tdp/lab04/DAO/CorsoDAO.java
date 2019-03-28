@@ -200,26 +200,19 @@ public class CorsoDAO {
 		//Verifico se lo stuente e' già iscritto al quel corso tramite metodo precedente
 		if (verificaIscrizione(studente,corso)==true) return false;
 		
-		//QUERY DI INSERIMENTO
-		int matricola = studente.getMatricola();
-		String codins = corso.getCodIns();
-		
-		/* sara' da modificare
-		final String sql = "INSERT INTO iscrizione(matricola,codins) VALUES ( ? , ? )";	
-		*/
-		/*soluzione non del tutto corretta : */
-		final String sql = "INSERT INTO iscrizione VALUES ('"+matricola+"' , '"+codins+"')";
+		final String sql = "INSERT IGNORE INTO iscritticorsi.iscrizione (matricola, codins) VALUES (?,?)";	
 		
 		try {
+			
 			Connection conn = ConnectDB.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 			
-			/*Setto parametri query
+			//Setto parametri query
 			st.setInt(1, studente.getMatricola());
 			st.setString(2, corso.getCodIns());
-			*/
 			
-			ResultSet rs = st.executeQuery();
+			//executeUpdate() per query del tipo INSERT/UPDATE/DELETE
+		    int rs = st.executeUpdate();
 
 			conn.commit();
 			
